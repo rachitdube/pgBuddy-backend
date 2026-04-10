@@ -20,7 +20,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/auth", authRoutes);
 app.use("/api/listings", listingRoutes);
 app.use("/api/saved", savedRoutes);
-app.use("/api/saved", savedRoutes);
 
 app.use((err, req, res, next) => {
   console.error("Unhadled error: ", err);
