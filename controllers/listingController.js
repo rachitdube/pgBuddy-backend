@@ -41,7 +41,7 @@ export const getListing = async (req, res) => {
               COUNT(DISTINCT r.id) AS review_count
               FROM listings l
               JOIN users u ON u.id = l.landlord_id
-              LEFT JOIN reviews r ON r.lsiting_id = l.id
+              LEFT JOIN reviews r ON r.listing_id = l.id
               WHERE l.id = ${id} AND l.is_active = true
               GROUP BY l.id, u.name, u.phone
         `;
@@ -55,8 +55,14 @@ export const getListing = async (req, res) => {
      SELECT id, name FROM amenities WHERE listing_id = ${id}
     `;
     const reviews = await sql`
-     SELECT r.id, r.rating, r.comment, r.created_at,u.name AS reviewer_name FROM reviews r JOIN users u ON u.id = r.student_id where r.listing_id = ${id} ORDER BY r.created_at DESC LIMIT 10
+     SELECT r.id, r.rating, r.comment, r.created_at, u.name AS reviewer_name
+     FROM reviews r
+     JOIN users u ON u.id = r.student_id
+     WHERE r.listing_id = ${id}
+     ORDER BY r.created_at DESC LIMIT 10
     `;
+
+    res.json({ listing, photos, amenities, reviews });
   } catch (error) {
     console.error("Error in getListing: ", error);
     res.status(500).json({ error: "Internal Server Error" });
