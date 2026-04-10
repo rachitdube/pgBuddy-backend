@@ -6,7 +6,6 @@ import authRoutes from "./routes/auth.js";
 import listingRoutes from "./routes/listings.js";
 import savedRoutes from "./routes/saved.js";
 import job from "./utils/cron.js";
-import savedRoutes from "./routes/saved.js";
 
 dotenv.config();
 
