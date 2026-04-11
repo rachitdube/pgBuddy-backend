@@ -211,7 +211,7 @@ export const getMyListings = async (req, res) => {
       FROM listings l
       LEFT JOIN reviews r ON r.listing_id = l.id
       LEFT JOIN photos p ON p.listing_id = l.id
-      WHERE l.landlord_id = ${req.user.id}
+      WHERE l.landlord_id = ${req.user.id} AND l.is_active = true
       GROUP BY l.id
       ORDER BY l.created_at DESC
     `;
